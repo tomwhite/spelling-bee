@@ -5,7 +5,7 @@ The first program I wrote (bee.sh) is a Linux command line program that uses
 espeak to read out the word and the spelling. She used this version with her
 classmates to practice for the real thing.
 
-The second program is an HTML version
-(http://tomwhite.github.com/spelling-bee/index.html) that uses jQuery and
-Google Translate's text-to-speech function. It should work in most modern
-browsers.
+The second program is an HTML version that uses jQuery and Google
+Translate's text-to-speech function. It should work in most modern
+browsers. Due to cross-domain restrictions from Google Translate it only
+works locally, so just open index.html in a browser.
