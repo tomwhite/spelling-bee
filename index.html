@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<!--
+Copyright 2011 Tom White
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+  <head>
+    <title>Spelling Bee</title>
+  </head>
+  <body>
+    <script src="jquery-1.5.min.js"></script>
+    <script>
+    var word = "";
+    var started = false;
+    function speak(utterance) {
+      $('embed').remove();
+      $('body').append('<embed id="sound" src="http://translate.google.com/translate_tts?tl=en&q='
+        + utterance.replace(/ /, "+") + '" autostart="true" hidden="true" loop="false">');
+    }
+    function ask() {
+      var words = $("#words").val().trim();
+      var lines = words.split(/\n/);
+      word = lines[Math.floor(Math.random()*lines.length)];
+      speak("how do you spell, " + word);
+    }
+    function tell() {
+      speak(word + ", " + word.split("").join(", ") + ", " + word);
+      word = "";
+    }
+    function start() {
+      word = "";
+      $("#words").hide();
+      ask();
+      started = true;
+    }
+    function stop() {
+      $("#words").show();
+      started = false;
+    }
+    $('body').keypress(function() {
+      if (!started) return;
+      if (word == "") {
+        ask();
+      } else {
+        tell();
+      }
+    });
+    $(document).ready(function() {
+      $("#start").bind('click', start);
+      $("#stop").bind('click', stop);
+    });
+    </script>
+    <p>Click "Start" to start the <a href="http://en.wikipedia.org/wiki/Spelling_bee">spelling bee</a>. A word from the list below
+        will be selected at random and read out loud; spell it out loud
+        yourself, then press any key to hear the correct spelling.
+        Press any key to hear the next word.</p> 
+    <p><button id="start">Start</button><button id="stop">Stop</button></p>
+    <p>These are the words from Emilia's Spelling Bee on February 17, 2011.</p>
+    <textarea id="words" rows="20" cols="30">
+Abolitionist
+achievement
+Action
+activism
+Activist
+Advocate
+Alliance
+Amendment
+ancestors
+Athletes
+athletic
+bias
+celebration
+Church leader
+Civil Rights
+Civil war
+Coalition
+Collective
+Colleges
+Community
+Compromise
+Confederacy
+cooperative
+courageous
+Creative
+creativity
+culture
+Demonstration
+Determination
+devotion
+Discrimination
+Diversity
+Dream
+Education
+Emancipation
+Emancipation Proclamation
+Equality
+faith
+Foundation
+Freedom
+harmony
+Heritage
+Historical
+Honor
+hymn
+improvisation
+Indentured
+Independence
+Injustice
+inspirational
+Integration
+integrity
+intelligence
+inventive
+Justice
+Leader
+Liberty
+Literature
+marching
+Missionary
+motion
+movement
+Narrative
+National
+Nonviolence
+Obstacle
+oppression
+organize
+overcome
+Peace
+perseverance
+Politics
+Powerful
+prejudice
+Pride
+Protest
+purpose
+quilts
+rebellion
+rejoice
+Renaissance
+resilience
+respect
+responsibility
+revolution
+rhythms
+Segregation
+self determination
+Society
+solidarity
+Soul
+spiritual
+strength
+Struggle
+suffrage
+temperance
+transformation
+trustworthy
+truth
+Tuskegee
+Unemployment
+Unity
+    </textarea>
+    <p><a href="https://github.com/tomwhite/spelling-bee/">Source code</a></p>
+  </body>
+</html>
